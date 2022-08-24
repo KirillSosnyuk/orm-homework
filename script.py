@@ -27,11 +27,10 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 #Функция для вставки данных
-inserting_data(session, 'D:/Дз/Новая папка/orm-homework/tests_data.json')
+inserting_data(session)
 
 # Опрееделяем что введено, идентификатор(число) или имя
 if publisher_input.isdigit():
-    #session.query(Publisher).join(Book.publisher).join(Stock.book).filter(Publisher.id == publisher_input).all()
     for c in session.query(Shop).join(Stock, Shop.id == Stock.id_shop).join(Book, Stock.id_book == Book.id).join(Publisher, Book.id_publisher == Publisher.id).filter(Publisher.id == int(publisher_input)).all():
         print(c) 
 else:
